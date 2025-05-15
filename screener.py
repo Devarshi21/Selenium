@@ -24,8 +24,7 @@ for element in elements:           #Searching for the company name
         element.send_keys(Keys.ENTER)
         break
 
+market_value = driver.find_element(By.CLASS_NAME, "number").text
+print(market_value + "Cr")  # Printing the market cap of the company
 
-
-
-time.sleep(5)
 driver.quit()
