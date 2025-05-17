@@ -9,22 +9,29 @@ from selenium.webdriver.common.action_chains import ActionChains
 #from bse_ann import company
 import time
 
+name = ["Adani Green Energy"]
+def screener(company_name):
+    url = "https://www.screener.in/"
 
-url = "https://www.screener.in/"
+    service = Service(executable_path="chromedriver.exe")
+    driver = webdriver.Chrome(service=service)
+    driver.get(url)     # Opening the webpage
 
-service = Service(executable_path="chromedriver.exe")
-driver = webdriver.Chrome(service=service)
-driver.get(url)     # Opening the webpage
+    # Opening the required 
+    elements = driver.find_elements(By.XPATH, "//input[@type='search']")  # Returns webdriver elements
+    for element in elements:           #Searching for the company name
+        if element.is_displayed():
+            element.send_keys(company_name)
+            #WebDriverWait(driver, 10).until(
+             #   EC.presence_of_element_located((By.CLASS_NAME, "dropdown-content"))
+            #)
+            element.send_keys(Keys.RETURN)
+            break
 
-# Opening the required 
-elements = driver.find_elements(By.XPATH, "//input[@type='search']")  # Returns webdriver elements
-for element in elements:           #Searching for the company name
-    if element.is_displayed():
-        element.send_keys("Tata Motors")
-        element.send_keys(Keys.ENTER)
-        break
+    market_value = driver.find_element(By.CLASS_NAME, "number").text
+    company_value = (market_value + "Cr")  # Printing the market cap of the company
+    print(f"Market Cap of {company_name} is : {company_value}")
+    driver.quit()
+    return company_value
 
-market_value = driver.find_element(By.CLASS_NAME, "number").text
-print(market_value + "Cr")  # Printing the market cap of the company
-
-driver.quit()
+screener(name[0].split(' ')[0] + " " + name[0].split(' ')[1])
