@@ -9,7 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 #from bse_ann import company
 import time
 
-name = ["Adani Green Energy"]
+name = ["Josts Engineering Company Ltd"]
 def screener(company_name):
     url = "https://www.screener.in/"
 
@@ -22,9 +22,9 @@ def screener(company_name):
     for element in elements:           #Searching for the company name
         if element.is_displayed():
             element.send_keys(company_name)
-            #WebDriverWait(driver, 10).until(
-             #   EC.presence_of_element_located((By.CLASS_NAME, "dropdown-content"))
-            #)
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.CLASS_NAME, "dropdown-content"))
+            )
             element.send_keys(Keys.RETURN)
             break
 

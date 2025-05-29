@@ -44,12 +44,15 @@ def scrapper():
 
 
     # Extracting the name/s of companies
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, 1).until(
         EC.presence_of_element_located((By.XPATH, "//span[@ng-bind-html='cann.NEWSSUB']"))
     )
 
     elements = driver.find_elements(By.XPATH, "//span[@ng-bind-html='cann.NEWSSUB']")
 
+
+
+    # Extracting the names of companies and avoiding duplicates
     for element in elements:
         element = element.text
         name = element.split('-')[0].strip()
